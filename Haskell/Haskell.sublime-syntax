@@ -21,6 +21,9 @@ variables:
   operator_fun: (?:\((?!--+\)){{operator}}\))
 
 contexts:
+  prototype:
+    - include: comments
+    
   main:
     - match: "(`){{function_name}}(`)"
       comment: "In case this regex seems unusual for an infix operator, note that Haskell allows any ordinary function application (elem 4 [1..10]) to be rewritten as an infix expression (4 `elem` [1..10])."
@@ -56,10 +59,14 @@ contexts:
           pop: true
         - match: \b(Mon(ad|oid)|Functor|Applicative|(Folda|Traversa)ble|Eq|Ord|Read|Show|Num|(Frac|Ra)tional|Enum|Bounded|Real(Frac|Float)?|Integral|Floating)\b
           scope: support.class.prelude.haskell
-        - match: "[A-Z][A-Za-z_']*"
+        - match: "{{class_name}}"
           scope: entity.other.inherited-class.haskell
         - match: '\b[a-z][a-zA-Z0-9_'']*\b'
           scope: variable.other.generic-type.haskell
+        - match: "(->|→)"
+          scope: keyword.other.arrow.haskell
+        - match: "(=>|⇒)"
+          scope: keyword.other.big-arrow.haskell
     - match: \b(instance)\b
       captures:
         1: keyword.other.haskell
@@ -81,7 +88,7 @@ contexts:
           scope: keyword.other.haskell
         - include: module_name
         - include: module_exports
-        - include: comments
+        # - include: comments
     - match: (deriving)\s*\(
       captures:
         1: keyword.other.haskell
@@ -185,7 +192,7 @@ contexts:
       scope: identity.haskell
     - match: '\b{{class_name}}'
       scope: constant.other.haskell
-    - include: comments
+    # - include: comments
     # - include: infix_op
     - match: '{{operator_fun}}'
       clear: true
@@ -209,7 +216,7 @@ contexts:
           scope: punctuation.definition.comment.end.haskell
           pop: true
   comments:
-    - match: '--'
+    - match: --+(?!(?:[\p{S}\p{P}](?<![(),;\[\]`{}_"'])))
       scope: punctuation.definition.comment.haskell
       push:
         - meta_scope: comment.line.double-dash.haskell

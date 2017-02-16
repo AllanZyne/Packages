@@ -4,7 +4,14 @@
 --     ^^ punctuation.definition.comment.haskell
 --     ^^^^^^^^^^^^^^^^^^^^^^^ comment.line.double-dash.haskell
 23*36
+
 -- <- - comment.line.double-dash.haskell
+--() <- - comment.line.double-dash.haskell
+
+   --> xx
+-- ^^^ keyword.operator.haskell
+   &-- xx
+-- ^^^ keyword.operator.haskell
 
    {- block comment -} 23*36
 -- ^^ punctuation.definition.comment.begin.haskell
@@ -42,8 +49,12 @@
 --                      ^^ punctuation.definition.comment.end.haskell
 --                        ^ - comment.block.haskell
 
-   class (Functor t, Foldable t) => Traversable t where
+   class (Func t, Foldable t) => Traversable t where
 -- ^^^^^ keyword.other.haskell
+--        ^^^^ entity.other.inherited-class.haskell
+--             ^ variable.other.generic-type.haskell
+--                ^^^^^^^^ support.class.prelude.haskell
+--                            ^^ keyword.other.big-arrow.haskell
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.declaration.class.haskell
    {-# MINIMAL traverse | sequenceA LANGUAGE #-}
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.haskell
