@@ -60,6 +60,7 @@
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.haskell
 --                                              ^ - meta.preprocessor.haskell
 --                                   ^^^^^^^ keyword.other.preprocessor.haskell
+--     ^^^^^^^ keyword.other.preprocessor.haskell
 
 -- | Map each element of a structure to an action,
 -- evaluate these actions from left to right, and
