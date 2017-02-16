@@ -178,10 +178,12 @@ contexts:
         3: keyword.other.double-colon.haskell
       push:
         - meta_scope: meta.function.type-declaration.haskell
-        - include: type_signature
         - match: ^(?!\1[ \t]|[ \t]*$)
           pop: true
-    - match: '\b[A-Z]\w*\b'
+        - include: type_signature
+    - match: '\b{{function_name}}'
+      scope: identity.haskell
+    - match: '\b{{class_name}}'
       scope: constant.other.haskell
     - include: comments
     # - include: infix_op
@@ -253,7 +255,7 @@ contexts:
       scope: keyword.other.big-arrow.haskell
     - match: '\b[a-z][a-zA-Z0-9_'']*\b'
       scope: variable.other.generic-type.haskell
-    - match: '\b[A-Z][a-zA-Z0-9_'']*\b'
+    - match: '\b{{class_name}}'
       scope: storage.type.haskell
     - match: \(\)
       scope: support.constant.unit.haskell
