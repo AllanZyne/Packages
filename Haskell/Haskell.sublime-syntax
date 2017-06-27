@@ -24,15 +24,8 @@ variables:
 contexts:
   prototype:
     - include: comments
-    - match: ^\s*(#\s*(?:if|ifdef|ifndef|elif|else|endif))\b
-      comment: In addition to Haskell's "native" syntax, GHC permits the C preprocessor to be run on a source file.
-      captures:
-        1: keyword.control.import.c
-      push:
-        - meta_scope: meta.preprocessor.c
-        - match: $\n
-          pop: true
-        
+    - include: preprocessor
+
   main:
     - match: "(`){{function_name}}(`)"
       comment: "In case this regex seems unusual for an infix operator, note that Haskell allows any ordinary function application (elem 4 [1..10]) to be rewritten as an infix expression (4 `elem` [1..10])."
@@ -229,6 +222,16 @@ contexts:
         - match: $\n?
           pop: true
     - include: block_comment
+
+  preprocessor:
+    - match: ^\s*(#\s*(?:if|ifdef|ifndef|elif|else|endif))\b
+      comment: In addition to Haskell's "native" syntax, GHC permits the C preprocessor to be run on a source file.
+      captures:
+        1: keyword.control.import.c
+      push:
+        - meta_scope: meta.preprocessor.c
+        - match: $\n
+          pop: true
 
   infix_op:
     - match: '\((\.\.)\)'
