@@ -1,5 +1,55 @@
 -- SYNTAX TEST "Packages/Haskell/Haskell.sublime-syntax"
 
+module SyntaxTest (
+  traverse,   -- :: Applicative f => (a -> f b) -> t a -> f (t b)
+#if 0
+  sequenceA,  -- :: Applicative f ⇒ t (f a) → f (t a)
+  (),
+  (-->),
+  (Modl.==>$),     -- :: Parse a -> Parse b -> Parse b
+#endif
+  MyList,
+) where
+
+
+import A
+import A()
+import A(x)
+import qualified A
+import qualified A()
+import qualified A(x)
+import A hiding ()
+import A hiding (x)
+import qualified A hiding ()
+import qualified A hiding (x)
+import A as B
+import A as B(x)
+import qualified A as B
+
+
+module Stack( StkType, push, pop, empty ) where
+  data StkType a = EmptyStk | Stk a (StkType a)
+  push x s = Stk x s
+  pop (Stk _ s) = s
+  empty = EmptyStk
+
+module Stack( StkType, push, pop, empty ) where
+  newtype StkType a = Stk [a]
+  push x (Stk s) = Stk (x:s)
+  pop (Stk (_:s)) = Stk s
+  empty = Stk []
+
+
+
+data Bool = False | True deriving
+  (Read, Show, Eq, Ord, Enum, Bounded)
+
+data [a] = [] | a : [a] deriving Ord
+
+data () = () deriving(Eq, Ord, Bounded, Enum, Read, Show)
+
+
+
 23*36  -- single line comment
 --     ^^ punctuation.definition.comment.haskell
 --     ^^^^^^^^^^^^^^^^^^^^^^^ comment.line.double-dash.haskell
@@ -113,3 +163,21 @@
 --      ^ keyword.operator.haskell
         | (y <= x) && (z <= x) = z
 --      ^ keyword.operator.haskell
+
+   {-# LANGUAGE MagicHash #-}
+   splitWith :: (Word8 -> Bool) -> ByteString -> [ByteString]
+   splitWith _pred (PS _  _   0) = []
+   splitWith pred_ (PS fp off len) = splitWith0 pred# off len fp
+      where pred# c# = pred_ (W8# c#)
+
+
+   f.g
+   F.g
+-- ^^^ indentify
+   f..
+--  ^^ keyword.operator
+   F..
+-- ^^  contant
+--   ^ keyword.operator.qualified
+   F.
+-- 
